@@ -1,8 +1,15 @@
 ---
-- name: add the mesosphere repo
+- name: add the mesosphere repo (el7)
   yum: >
     state=present
     name='http://repos.mesosphere.io/el/7/noarch/RPMS/mesosphere-el-repo-7-1.noarch.rpm'
+  when: ansible_distribution_major_version == "7"
+
+- name: add the mesosphere repo (el6)
+  yum: >
+    state=present
+    name='http://repos.mesosphere.io/el/6/noarch/RPMS/mesosphere-el-repo-6-2.noarch.rpm'
+  when: ansible_distribution_major_version == "6" or ansible_distribution == "Amazon"
 
 - name: mkdir /etc/mesos
   file: >
